@@ -26,7 +26,7 @@
   <name>tmall_ssm</name>
   <groupId>com.dong.tmall</groupId>
   <artifactId>tmall_ssm</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <spring.version>4.1.3.RELEASE</spring.version>
