@@ -2,6 +2,7 @@ package com.dong.tmall.pojo;
 
 public class Category {
     private Integer id;
+
     private String name;
 
     public Integer getId() {
