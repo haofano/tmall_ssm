@@ -19,3 +19,8 @@
 2018.6.12  
 加入订单管理功能。后台功能暂时完成。  
 导入前台所需的数据库样例数据。  
+
+2018.6.16  
+加入前台home.jsp页面,由header.jsp,top.jsp,search.jsp,homePage.jsp,footer.jsp构成  
+header,top,search,footer为通用页面  
+加入注册register.jsp页面  
