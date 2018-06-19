@@ -24,3 +24,9 @@
 加入前台home.jsp页面,由header.jsp,top.jsp,search.jsp,homePage.jsp,footer.jsp构成  
 header,top,search,footer为通用页面  
 加入注册register.jsp页面  
+
+2018.6.17  
+加入登录login.jsp页面  
+
+2018.6.18  
+加入退出已登录的用户功能，完成部分产品页的显示
