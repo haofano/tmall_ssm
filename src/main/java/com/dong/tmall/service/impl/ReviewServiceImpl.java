@@ -7,9 +7,11 @@ import com.dong.tmall.pojo.User;
 import com.dong.tmall.service.ReviewService;
 import com.dong.tmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReviewServiceImpl implements ReviewService{
     @Autowired
     ReviewMapper reviewMapper;
@@ -36,8 +38,7 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewMapper.selectByPrimaryKey(id);
     }
 
-    @Override
-    public List list(int pid) {
+    public List<Review> list(int pid) {
         ReviewExample example = new ReviewExample();
         example.createCriteria().andPidEqualTo(pid);
         example.setOrderByClause("id desc");

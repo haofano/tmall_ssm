@@ -2,14 +2,17 @@ package com.dong.tmall.controller;
 
 import com.dong.tmall.pojo.*;
 import com.dong.tmall.service.*;
+import comparator.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -90,5 +93,49 @@ public class ForeController {
         model.addAttribute("pvs", pvs);
         return "fore/product";
     }
-
+    @RequestMapping("forecheckLogin")
+    @ResponseBody
+    public String checkLogin(HttpSession session){
+        User user = (User)session.getAttribute("user");
+        if(null != user)
+            return "success";
+        return "fail";
+    }
+    @RequestMapping("foreloginAjax")
+    @ResponseBody
+    public String loginAjax(@RequestParam("name") String name,@RequestParam("password") String password, HttpSession session){
+        name = HtmlUtils.htmlEscape(name);
+        User user = userService.get(name, password);
+        if(null == user)
+            return "fail";
+        session.setAttribute("user", user);
+        return "success";
+    }
+    @RequestMapping("forecategory")
+    public String category(int cid, String sort, Model model){
+        Category c = categoryService.get(cid);
+        productService.fill(c);
+        productService.setSaleAndReviewNumber(c.getProducts());
+        if(null != sort){
+            switch(sort){
+                case "review":
+                    Collections.sort(c.getProducts(),new ProductReviewComparator());
+                    break;
+                case "date":
+                    Collections.sort(c.getProducts(),new ProductDateComparator());
+                    break;
+                case "saleCount":
+                    Collections.sort(c.getProducts(),new ProductSaleCountComparator());
+                    break;
+                case "price":
+                    Collections.sort(c.getProducts(),new ProductPriceComparator());
+                    break;
+                case "all":
+                    Collections.sort(c.getProducts(),new ProductAllComparator());
+                    break;
+            }
+        }
+        model.addAttribute("c", c);
+        return "fore/category";
+    }
 }
